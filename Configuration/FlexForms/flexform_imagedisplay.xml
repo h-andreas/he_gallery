@@ -1,0 +1,21 @@
+<T3DataStructure>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <el>
+                    <settings.imageFolder>
+                        <TCEforms>
+                            <label>Ordner</label>
+                            <config>
+                                <type>group</type>
+                                <internal_type>folder</internal_type>
+                                <maxitems>1</maxitems>
+                                <size>1</size>
+                            </config>
+                        </TCEforms>
+                    </settings.imageFolder>
+                </el>
+            </ROOT>
+        </sDEF>
+    </sheets>
+</T3DataStructure>

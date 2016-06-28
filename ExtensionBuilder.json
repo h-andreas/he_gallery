@@ -1,0 +1,42 @@
+{
+    "modules": [
+
+    ],
+    "properties": {
+        "backendModules": [
+
+        ],
+        "description": "Bildergalerie f\u00fcr die Website der Hochschule Esslingen",
+        "emConf": {
+            "category": "plugin",
+            "custom_category": "",
+            "dependsOn": "typo3 => 7.6.0-7.6.99\n",
+            "disableLocalization": false,
+            "disableVersioning": false,
+            "skipGenerateDocumentationTemplate": false,
+            "sourceLanguage": "en",
+            "state": "alpha",
+            "targetVersion": "7.6.0-7.6.99",
+            "version": "0.0.1"
+        },
+        "extensionKey": "he_gallery",
+        "name": "HE-Bildergalerie",
+        "originalExtensionKey": "",
+        "originalVendorName": "",
+        "persons": [
+
+        ],
+        "plugins": [
+
+        ],
+        "vendorName": "HSE"
+    },
+    "wires": [
+
+    ],
+    "log": {
+        "last_modified": "2016-06-27 10:35",
+        "extension_builder_version": "7.6.0",
+        "be_user": " (1)"
+    }
+}

@@ -1,0 +1,22 @@
+
+plugin.tx_hegallery_imagedisplay {
+	view {
+		templateRootPaths.0 = {$plugin.tx_hegallery_imagedisplay.view.templateRootPath}
+		partialRootPaths.0 = {$plugin.tx_hegallery_imagedisplay.view.partialRootPath}
+		layoutRootPaths.0 = {$plugin.tx_hegallery_imagedisplay.view.layoutRootPath}
+	}
+	persistence {
+		storagePid = {$plugin.tx_hegallery_imagedisplay.persistence.storagePid}
+	}
+
+
+}
+
+page.includeJSFooter {
+	venobox = EXT:he_gallery/Resources/Public/venobox/venobox.js
+}
+
+page.includeCSS {
+	venobox = EXT:he_gallery/Resources/Public/venobox/venobox.css
+
+}

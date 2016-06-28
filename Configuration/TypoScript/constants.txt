@@ -1,0 +1,20 @@
+
+plugin.tx_hegallery_imagedisplay {
+	view {
+		# cat=plugin.tx_hegallery_imagedisplay/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:he_gallery/Resources/Private/Templates/
+		# cat=plugin.tx_hegallery_imagedisplay/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:he_gallery/Resources/Private/Partials/
+		# cat=plugin.tx_hegallery_imagedisplay/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:he_gallery/Resources/Private/Layouts/
+	}
+	persistence {
+		# cat=plugin.tx_hegallery_imagedisplay/storage; type=string; label=Default storage PID
+		storagePid =
+	}
+
+	settings {
+		# cat=plugin.tx_hegallery_imagedisplay/file; type=string; label=Path to CSS file
+		cssFile = EXT:he_gallery/Resources/Public/Css/he_personen.css
+	}
+}

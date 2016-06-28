@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="http://schema.helhum.dev/ns/fluid/ViewHelpers">
+<head>Gallerie</head>
+<body>
+
+<f:layout name="Default">
+
+    <f:section name="main">
+
+        <f:debug>{imagePath}</f:debug>
+
+        <f:for each="{imagePath}" as="imagePaths">
+            <a class="venobox" href="fileadmin{imagePaths.identifier}">
+                <f:image src="fileadmin{imagePaths.identifier}" width="100c" height="100c" />
+            </a>
+        </f:for>
+
+        <script type="text/javascript">
+
+            $(document).ready(function(){
+
+                /* default settings */
+                $('.venobox').venobox();
+
+                /* auto-open #firstlink on page load */
+                $("#firstlink").venobox().trigger('click');
+            });
+
+        </script>
+
+    </f:section>
+
+</f:layout>
+
+</body>
+</html>
