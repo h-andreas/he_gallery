@@ -14,9 +14,10 @@ plugin.tx_hegallery_imagedisplay {
 
 page.includeJSFooter {
 	venobox = EXT:he_gallery/Resources/Public/venobox/venobox.js
+	he_gallery = EXT:he_gallery/Resources/Public/js/he_gallery.js
 }
 
 page.includeCSS {
 	venobox = EXT:he_gallery/Resources/Public/venobox/venobox.css
-
+	he_gallery = EXT:he_gallery/Resources/Public/css/he_gallery.css
 }

@@ -6,28 +6,27 @@
 <f:layout name="Default">
 
     <f:section name="main">
+        <f:debug>{all}</f:debug>
+        <div class="container he_gallery">
+            <f:if condition="{cssClass} == 'dreispaltig'">
+                <f:render section="showImages" arguments="{layout: 'col-lg-2 col-md-4 col-sm-6 col-xs-8'}" />
+            </f:if>
+            <f:if condition="{cssClass} == 'vierspaltig'">
+                <f:render section="showImages" arguments="{'layout: 'col-lg-2 col-md-3 col-sm-4 col-xs-6'}" />
+            </f:if>
+            <f:if condition="{cssClass} == 'sechsspaltig'">
+                <f:render section="showImages" arguments="{'layout: 'col-lg-2 col-md-2 col-sm-3 col-xs-4'}" />
+            </f:if>
+        </div>
+    </f:section>
 
-        <f:debug>{imagePath}</f:debug>
-
-        <f:for each="{imagePath}" as="imagePaths">
-            <a class="venobox" href="fileadmin{imagePaths.identifier}">
-                <f:image src="fileadmin{imagePaths.identifier}" width="100c" height="100c" />
+    <f:section name="showImages">
+        <div class="{layout}">
+            <a class="venobox" data-gall="he_gallery" href="{f:uri.image(src: 'fileadmin{imagePaths.identifier}', width: '1000')}">
+                <f:image src="fileadmin{imagePaths.identifier}" width="300c" height="300c" />
             </a>
-        </f:for>
-
-        <script type="text/javascript">
-
-            $(document).ready(function(){
-
-                /* default settings */
-                $('.venobox').venobox();
-
-                /* auto-open #firstlink on page load */
-                $("#firstlink").venobox().trigger('click');
-            });
-
-        </script>
-
+            {imagePaths.properties.description}
+        </div>
     </f:section>
 
 </f:layout>

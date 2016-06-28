@@ -46,6 +46,7 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $imageFolder = $this->settings['imageFolder'];
         $images = $this->getFiles($imageFolder);
 
+        $cssClass = $this->settings['layout'];
         foreach ($images as $imageItems) {
             $imageidentifiers[] = $imageItems->getIdentifier();
         }
@@ -58,6 +59,7 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         // $imageDimension = getimagesize($absImgPath);
 
         $this->view->assign('imagePath', $images);
+        $this->view->assign('cssClass', $cssClass);
     }
 
     // hier die Methode, um aus einem Verzeichnis die Dateien auszulesen:

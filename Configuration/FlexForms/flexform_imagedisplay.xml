@@ -14,6 +14,28 @@
                             </config>
                         </TCEforms>
                     </settings.imageFolder>
+                    <settings.layout>
+                        <TCEforms>
+                            <label>Layout auswählen</label>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">Dreispaltig</numIndex>
+                                        <numIndex index="1">dreispaltig</numIndex>
+                                    </numIndex>
+                                    <numIndex index="10">
+                                        <numIndex index="0">Vierspaltig</numIndex>
+                                        <numIndex index="1">vierspaltig</numIndex>
+                                    </numIndex>
+                                    <numIndex index="20">
+                                        <numIndex index="0">Sechsspaltig</numIndex>
+                                        <numIndex index="1">sechsspaltig</numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </settings.layout>
                 </el>
             </ROOT>
         </sDEF>
