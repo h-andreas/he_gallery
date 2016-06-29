@@ -43,10 +43,12 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function listAction(){
 
+        $cssClass = $this->settings['layout'];
         $imageFolder = $this->settings['imageFolder'];
+
         $images = $this->getFiles($imageFolder);
 
-        $cssClass = $this->settings['layout'];
+/*
         foreach ($images as $imageItems) {
             $imageidentifiers[] = $imageItems->getIdentifier();
         }
@@ -57,8 +59,8 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         // Hier eine Methode, um die Bildmasse abzufragen:
         // $imageDimension = getimagesize($absImgPath);
-
-        $this->view->assign('imagePath', $images);
+*/
+        $this->view->assign('images', $images);
         $this->view->assign('cssClass', $cssClass);
     }
 
@@ -69,20 +71,53 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param String $imageFolder
      * @return \TYPO3\CMS\Core\Resource\File[]
      */
-    public function getFiles($imageFolder) {
-        /** @var $resourceFactory \TYPO3\CMS\Core\Resource\ResourceFactory */
-        $resourceFactory = $this->objectManager->get(\TYPO3\CMS\Core\Resource\ResourceFactory::class);
-        $storage = $resourceFactory->getStorageObjectFromCombinedIdentifier($imageFolder);
-        $identifier = substr($imageFolder, strpos($imageFolder, ':') + 1);
-        if (!$storage->hasFolder($identifier)) {
-            $identifier = $storage->getFolderIdentifierFromFileIdentifier($identifier);
-        }
-        /** @var \TYPO3\CMS\Core\Resource\Folder $folderObject */
-        $folderObject = $resourceFactory->getFolderObjectFromCombinedIdentifier($storage->getUid() . ':' . $identifier);
+    protected function getFiles($imageFolder) {
+      /** @var \TYPO3\CMS\Core\Resource\Folder $folderObject */
+      $folderObject = $this->getFolderObject($imageFolder);
 
-        /**@var \TYPO3\CMS\Core\Resource\File[] $files */
-        $files = $folderObject->getFiles(0, 999);
-        return $files;
+      /**@var \TYPO3\CMS\Core\Resource\File[] $files */
+      $files = $folderObject->getFiles(0, 999);
+
+      return $files;
     }
+
+  /**
+   * get all Subfolders from given folder
+   *
+   * @param String $imageFolder
+   * @return \TYPO3\CMS\Core\Resource\Folder[]
+   */
+  protected function getSubfolders($imageFolder) {
+    /** @var \TYPO3\CMS\Core\Resource\Folder $folderObject */
+    $folderObject = $this->getFolderObject($imageFolder);
+
+    /**@var \TYPO3\CMS\Core\Resource\Folder[] $files */
+    $folderList = $folderObject->getSubfolders(0,0,0);
+
+    return $folderList;
+  }
+
+
+  /**
+   * get folder object
+   *
+   * @param String $imageFolder
+   * @return \TYPO3\CMS\Core\Resource\Folder
+   */
+  protected function getFolderObject($imageFolder) {
+    /** @var $resourceFactory \TYPO3\CMS\Core\Resource\ResourceFactory */
+    $resourceFactory = $this->objectManager->get(\TYPO3\CMS\Core\Resource\ResourceFactory::class);
+    $storage = $resourceFactory->getStorageObjectFromCombinedIdentifier($imageFolder);
+    $identifier = substr($imageFolder, strpos($imageFolder, ':') + 1);
+    if (!$storage->hasFolder($identifier)) {
+      $identifier = $storage->getFolderIdentifierFromFileIdentifier($identifier);
+    }
+    /** @var \TYPO3\CMS\Core\Resource\Folder $folderObject */
+    $folderObject = $resourceFactory->getFolderObjectFromCombinedIdentifier($storage->getUid() . ':' . $identifier);
+    return $folderObject;
+  }
+
+
 }
+
 
