@@ -1,7 +1,6 @@
 <?php
-namespace HSE\HeGallery\Controller;
+namespace HSE\HeGallery\Utility;
 
-use HSE\HeGallery\Utility\FileUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
@@ -33,84 +32,20 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 /**
  * GalleryController
  */
-class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class FileUtility
 {
 
 
-    /**
-     * action list
-     *
-     * @return void
-     */
-    public function listAction(){
-
-        $cssClass = $this->settings['layout'];
-        $imageFolder = $this->settings['imageFolder'];
-
-        $images = FileUtility::getFiles($imageFolder);
-
-/*
-        foreach ($images as $imageItems) {
-            $imageidentifiers[] = $imageItems->getIdentifier();
-        }
-        foreach ($imageidentifiers as $imageidentifierItems) {
-            $imagePaths[] = '/fileadmin' . $imageidentifierItems;
-        }
-        //$imagePaths[] = '/fileadmin' . $imageidentifiers;
-
-        // Hier eine Methode, um die Bildmasse abzufragen:
-        // $imageDimension = getimagesize($absImgPath);
-*/
-        $this->view->assign('images', $images);
-        $this->view->assign('cssClass', $cssClass);
-    }
-
-    /**
-     * action listFolders
-     *
-     * @return void
-     */
-    public function listFoldersAction(){
-
-        $cssClass = $this->settings['layout'];
-        $imageFolder = $this->settings['imageFolder'];
-
-        $subfolders = FileUtility::getSubfolders($imageFolder);
-
-        $uid = substr($imageFolder, 0, strpos($imageFolder, ':'));
-
-        $this->view->assign('uid', $uid);
-        $this->view->assign('subfolders', $subfolders);
-        $this->view->assign('cssClass', $cssClass);
-    }
-
-    /**
-     * action showFolder
-     *
-     * @param string $subfolder
-     * @param int $uid
-     * @return void
-     */
-    public function showFolderAction($subfolder, $uid){
-
-        $cssClass = $this->settings['layout'];
-
-        $images = $this->getFiles($uid . ':' . $subfolder);
-
-        $this->view->assign('images', $images);
-        $this->view->assign('cssClass', $cssClass);
-    }
-
-    // hier die Methode, um aus einem Verzeichnis die Dateien auszulesen:
+   // hier die Methode, um aus einem Verzeichnis die Dateien auszulesen:
     /**
      * get all Files from given folder
      *
      * @param String $imageFolder
      * @return \TYPO3\CMS\Core\Resource\File[]
      */
-    protected function getFiles($imageFolder) {
+    public static  function getFiles($imageFolder) {
       /** @var \TYPO3\CMS\Core\Resource\Folder $folderObject */
-      $folderObject = $this->getFolderObject($imageFolder);
+      $folderObject = self::getFolderObject($imageFolder);
 
       /**@var \TYPO3\CMS\Core\Resource\File[] $files */
       $files = $folderObject->getFiles(0, 999);
@@ -124,9 +59,9 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
    * @param String $imageFolder
    * @return \TYPO3\CMS\Core\Resource\Folder[]
    */
-  protected function getSubfolders($imageFolder) {
+    public static function getSubfolders($imageFolder) {
     /** @var \TYPO3\CMS\Core\Resource\Folder $folderObject */
-    $folderObject = $this->getFolderObject($imageFolder);
+    $folderObject = self::getFolderObject($imageFolder);
 
     /**@var \TYPO3\CMS\Core\Resource\Folder[] $files */
     $folderList = $folderObject->getSubfolders(0, 999);
@@ -141,9 +76,9 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
    * @param String $imageFolder
    * @return \TYPO3\CMS\Core\Resource\Folder
    */
-  protected function getFolderObject($imageFolder) {
+  protected static function getFolderObject($imageFolder) {
     /** @var $resourceFactory \TYPO3\CMS\Core\Resource\ResourceFactory */
-    $resourceFactory = $this->objectManager->get(\TYPO3\CMS\Core\Resource\ResourceFactory::class);
+    $resourceFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeinstance(\TYPO3\CMS\Core\Resource\ResourceFactory::class);
     $storage = $resourceFactory->getStorageObjectFromCombinedIdentifier($imageFolder);
     $identifier = substr($imageFolder, strpos($imageFolder, ':') + 1);
     if (!$storage->hasFolder($identifier)) {

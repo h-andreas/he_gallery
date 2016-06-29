@@ -3,6 +3,25 @@
         <sDEF>
             <ROOT>
                 <el>
+                    <switchableControllerActions>
+                        <TCEforms>
+                            <label>Befinden sich im Bilderordner unterordner?</label>
+                            <onChange>reload</onChange>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">Ja</numIndex>
+                                        <numIndex index="1">Gallery->listFolders; Gallery->showFolder</numIndex>
+                                    </numIndex>
+                                    <numIndex index="10">
+                                        <numIndex index="0">Nein</numIndex>
+                                        <numIndex index="1">Persons->list</numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </switchableControllerActions>
                     <settings.imageFolder>
                         <TCEforms>
                             <label>Ordner</label>

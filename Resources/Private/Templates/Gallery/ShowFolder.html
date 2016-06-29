@@ -1,0 +1,48 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="http://schema.helhum.dev/ns/fluid/ViewHelpers">
+<head>Gallerie</head>
+<body>
+
+<f:layout name="Default">
+
+    <f:section name="main">
+        <div class="he_gallery">
+            <f:alias map="{
+                col3Css: 'col-lg-2 col-md-4 col-sm-6 col-xs-8',
+                col3Size: '400',
+                col4Css: 'col-lg-3 col-md-3 col-sm-4 col-xs-6',
+                col4Size: '300',
+                col6Css: 'col-lg-2 col-md-2 col-sm-3 col-xs-4',
+                col6Size: '200'
+                }">
+                <f:if condition="{cssClass} == 'dreispaltig'">
+                    <f:render section="showImages" arguments="{images: images, layout: col3Css, size: col3Size}" />
+                </f:if>
+                <f:if condition="{cssClass} == 'vierspaltig'">
+                    <f:render section="showImages" arguments="{images: images, layout: col4Css, size: col4Size}" />
+                </f:if>
+                <f:if condition="{cssClass} == 'sechsspaltig'">
+                    <f:render section="showImages" arguments="{images: images, layout: col6Css, size: col6Size}" />
+                </f:if>
+            </f:alias>
+
+         </div>
+    </f:section>
+
+    <f:section name="showImages">
+        <f:for each="{images}" as="image">
+
+            <div class="imagewrap {layout}">
+                <a class="venobox" data-gall="he_gallery" title="{image.properties.description}"
+                   href="{f:uri.image(src: 'fileadmin{image.identifier}', width: '{size}')}">
+                    <f:image title="{image.properties.description}" src="fileadmin{image.identifier}" width="300c" height="300c"/>
+                </a>
+
+            </div>
+        </f:for>
+    </f:section>
+
+</f:layout>
+
+</body>
+</html>
