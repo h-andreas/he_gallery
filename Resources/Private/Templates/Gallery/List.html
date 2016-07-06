@@ -6,7 +6,7 @@
 <f:layout name="Default">
 
     <f:section name="main">
-        <div class="he_gallery">
+        <div id="grid-gallery" class="he_gallery">
             <f:alias map="{
                 col3Css: 'col-lg-2 col-md-4 col-sm-6 col-xs-8',
                 col3Size: '400',
@@ -30,18 +30,15 @@
     </f:section>
 
     <f:section name="showImages">
-        <f:link.action action="goBack" arguments="{currentFolder:currentFolder, uid:uid}">
-            zurück
-        </f:link.action>
-        <hr>
         <f:for each="{images}" as="image">
-            <div class="imagewrap {layout}">
+            <div class="grid-item">
                 <a class="venobox" data-gall="he_gallery" title="{image.properties.description}"
-                   href="{f:uri.image(src: 'fileadmin{image.identifier}', width: '{size}')}">
-                    <f:image title="{image.properties.description}" src="fileadmin{image.identifier}" width="300c" height="300c"/>
+                   href="{f:uri.image(src: 'fileadmin{image.identifier}', width: '1000')}">
+                    <f:image title="{image.properties.description}" src="fileadmin{image.identifier}" width="300" />
                 </a>
             </div>
         </f:for>
+
     </f:section>
 
 </f:layout>

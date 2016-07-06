@@ -9,15 +9,11 @@ plugin.tx_hegallery_imagedisplay {
 		storagePid = {$plugin.tx_hegallery_imagedisplay.persistence.storagePid}
 	}
 
+	settings {
+		addVenoboxJs = {$plugin.tx_hegallery_imagedisplay.settings.addVenoboxJs}
+		addVenoboxCss = {$plugin.tx_hegallery_imagedisplay.settings.addVenoboxCss}
+		addMasonryJs = {$plugin.tx_hegallery_imagedisplay.settings.addMasonryJs}
+	}
 
 }
 
-page.includeJSFooter {
-	venobox = EXT:he_gallery/Resources/Public/venobox/venobox.js
-	he_gallery = EXT:he_gallery/Resources/Public/js/he_gallery.js
-}
-
-page.includeCSS {
-	venobox = EXT:he_gallery/Resources/Public/venobox/venobox.css
-	he_gallery = EXT:he_gallery/Resources/Public/css/he_gallery.css
-}

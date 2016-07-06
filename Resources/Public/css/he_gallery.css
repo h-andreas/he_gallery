@@ -1,5 +1,5 @@
 
-.he_gallery a.venobox img {
+.XXhe_gallery a.venobox img {
     width: 100%;
     height: inherit;
     padding: 0.5rem 0;
@@ -9,8 +9,12 @@
     padding: 0 0.5rem;
 }
 
-.he_gallery .folderview img {
-    width: 100%;
-    height: inherit;
-    padding: 0 0.5rem;
+
+.he_gallery  .grid-item {
+    float: left;
+}
+
+.he_gallery  .grid-item  img {
+    padding: 0.5rem;
+
 }

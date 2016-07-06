@@ -2,6 +2,8 @@
 namespace HSE\HeGallery\Controller;
 
 use HSE\HeGallery\Utility\FileUtility;
+use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
@@ -36,125 +38,109 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
 
+  /**
+   *  initializeAction
+   *
+   *  add css and js file concerning to TypoScript settings
+   *
+   * @return void
+   */
+  public function initializeAction() {
 
-    /**
-     * action list
-     *
-     * @return void
-     */
-    public function listAction(){
+    $extPath =  ExtensionManagementUtility::siteRelPath('he_gallery');
+    /** @var \TYPO3\CMS\Core\Page\PageRenderer $pageRenderer */
+    $pageRenderer = $this->objectManager->get(PageRenderer::class);
 
-        $cssClass = $this->settings['layout'];
-        $imageFolder = $this->settings['imageFolder'];
-        $currentFolder = substr($imageFolder, 2, strlen($imageFolder));
-
-        $images = FileUtility::getFiles($imageFolder);
-
-/*
-        foreach ($images as $imageItems) {
-            $imageidentifiers[] = $imageItems->getIdentifier();
-        }
-        foreach ($imageidentifiers as $imageidentifierItems) {
-            $imagePaths[] = '/fileadmin' . $imageidentifierItems;
-        }
-        //$imagePaths[] = '/fileadmin' . $imageidentifiers;
-
-        // Hier eine Methode, um die Bildmasse abzufragen:
-        // $imageDimension = getimagesize($absImgPath);
-*/
-        $this->view->assign('images', $images);
-        $this->view->assign('cssClass', $cssClass);
-        $this->view->assign('currentFolder', $currentFolder);
+    if (intval($this->settings['addVenoboxCss'])==1) {
+      $pageRenderer->addCssFile($extPath . 'Resources/Public/venobox/venobox.css');
     }
 
-    /**
-     * action listFolders
-     *
-     * @return void
-     */
-    public function listFoldersAction(){
-
-        $cssClass = $this->settings['layout'];
-        $imageFolder = $this->settings['imageFolder'];
-
-        $subfolders = FileUtility::getSubfolders($imageFolder);
-        $uid = substr($imageFolder, 0, strpos($imageFolder, ':'));
-        $initialFolder = substr($imageFolder, strpos($imageFolder, ':') + 1);
-
-       if(!empty($subfolders)) {
-           $this->view->assign('subfolders', $subfolders);
-       } else {
-           $images = FileUtility::getFiles($imageFolder);
-           $this->view->assign('images', $images);
-       }
-
-        $this->view->assign('uid', $uid);
-        $this->view->assign('cssClass', $cssClass);
-        $this->view->assign('initialFolder', $initialFolder);
+    if (intval($this->settings['addVenoboxJs'])==1) {
+      $pageRenderer->addJsFooterFile($extPath . 'Resources/Public/venobox/venobox.js');
     }
+    if (intval($this->settings['addMasonryJs'])==1) {
+      $pageRenderer->addJsFooterFile($extPath . 'Resources/Public/masonry/masonry.pkgd.js');
 
-    /**
-     * action showFolder
-     *
-     * @param string $subfolder
-     * @param int $uid
-     * @param string $initialFolder
-     * @return void
-     */
-    public function showFolderAction($subfolder, $uid, $initialFolder){
-
-        $cssClass = $this->settings['layout'];
-        $temp = substr($subfolder,0,strrpos($subfolder,"/"));
-        $parentFolder = substr($temp,0,strrpos($temp,"/")) . '/';
-        $subsubfolders = FileUtility::getSubfolders($uid . ':' . $subfolder);
-        $currentFolder = $subfolder;
-
-        if(empty($subsubfolders)) {
-            $images = FileUtility::getFiles($uid . ':' . $subfolder);
-            $this->view->assign('images', $images);
-        } else {
-            $this->view->assign('subfolders', $subsubfolders);
-        }
-
-        $this->view->assign('subfolder', $subfolder);
-        $this->view->assign('uid', $uid);
-        $this->view->assign('cssClass', $cssClass);
-        $this->view->assign('parentFolder', $parentFolder);
-        $this->view->assign('initialFolder', $initialFolder);
-        $this->view->assign('currentFolder', $currentFolder);
     }
+    $pageRenderer->addCssFile($extPath . 'Resources/Public/css/he_gallery.css');
+    $pageRenderer->addJsFooterFile($extPath . 'Resources/Public/js/he_gallery.js');
 
-    // hier die Methode, um aus einem Verzeichnis die Dateien auszulesen:
-    /**
-     * get all Files from given folder
-     *
-     * @param String $imageFolder
-     * @return \TYPO3\CMS\Core\Resource\File[]
-     */
-    protected function getFiles($imageFolder) {
-      /** @var \TYPO3\CMS\Core\Resource\Folder $folderObject */
-      $folderObject = $this->getFolderObject($imageFolder);
+  }
 
-      /**@var \TYPO3\CMS\Core\Resource\File[] $files */
-      $files = $folderObject->getFiles(0, 999);
-
-      return $files;
-    }
 
   /**
-   * get all Subfolders from given folder
+   * action list
    *
-   * @param String $imageFolder
-   * @return \TYPO3\CMS\Core\Resource\Folder[]
+   * @return void
    */
-  protected function getSubfolders($imageFolder) {
-    /** @var \TYPO3\CMS\Core\Resource\Folder $folderObject */
-    $folderObject = $this->getFolderObject($imageFolder);
+  public function listAction(){
 
-    /**@var \TYPO3\CMS\Core\Resource\Folder[] $files */
-    $folderList = $folderObject->getSubfolders(0, 999);
+    $cssClass = $this->settings['layout'];
+    $imageFolder = $this->settings['imageFolder'];
+    $currentFolder = substr($imageFolder, strpos($imageFolder, ':'));
 
-    return $folderList;
+    $images = FileUtility::getFiles($imageFolder);
+
+    $this->view->assign('images', $images);
+    $this->view->assign('cssClass', $cssClass);
+    $this->view->assign('currentFolder', $currentFolder);
+  }
+
+  /**
+   * action listFolders
+   *
+   * @return void
+   */
+  public function listFoldersAction(){
+
+    $cssClass = $this->settings['layout'];
+    $imageFolder = $this->settings['imageFolder'];
+
+    $subfolders = FileUtility::getSubfolders($imageFolder);
+    $uid = substr($imageFolder, 0, strpos($imageFolder, ':'));
+    $initialFolder = substr($imageFolder, strpos($imageFolder, ':') + 1);
+
+    if(!empty($subfolders)) {
+      $this->view->assign('subfolders', $subfolders);
+    } else {
+      $images = FileUtility::getFiles($imageFolder);
+      $this->view->assign('images', $images);
+    }
+
+    $this->view->assign('uid', $uid);
+    $this->view->assign('cssClass', $cssClass);
+    $this->view->assign('initialFolder', $initialFolder);
+  }
+
+  /**
+   * action showFolder
+   *
+   * @param string $subfolder
+   * @param int $uid
+   * @param string $initialFolder
+   * @return void
+   */
+  public function showFolderAction($subfolder, $uid, $initialFolder){
+
+    $cssClass = $this->settings['layout'];
+    $temp = substr($subfolder,0,strrpos($subfolder,"/"));
+    $parentFolder = substr($temp,0,strrpos($temp,"/")) . '/';
+    $subsubfolders = FileUtility::getSubfolders($uid . ':' . $subfolder);
+    $currentFolder = $subfolder;
+
+    if(empty($subsubfolders)) {
+      $images = FileUtility::getFiles($uid . ':' . $subfolder);
+      $this->view->assign('images', $images);
+    } else {
+      $this->view->assign('subfolders', $subsubfolders);
+    }
+
+    $this->view->assign('subfolder', $subfolder);
+    $this->view->assign('uid', $uid);
+    $this->view->assign('cssClass', $cssClass);
+    $this->view->assign('parentFolder', $parentFolder);
+    $this->view->assign('initialFolder', $initialFolder);
+    $this->view->assign('currentFolder', $currentFolder);
   }
 
 
