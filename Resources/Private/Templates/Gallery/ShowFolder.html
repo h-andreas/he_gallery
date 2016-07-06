@@ -18,13 +18,13 @@
                 col6Size: '200'
                 }">
                 <f:if condition="{cssClass} == 'dreispaltig'">
-                    <f:render section="showImages" arguments="{initialFolder:initialFolder, currentFolder:currentFolder, images: images, subfolders:subfolders, uid:uid, layout: col3Css, size: col3Size}" />
+                    <f:render section="showImages" arguments="{currentFolder:currentFolder, initialFolder:initialFolder, parentFolder:parentFolder, images: images, subfolders:subfolders, uid:uid, layout: col3Css, size: col3Size}" />
                 </f:if>
                 <f:if condition="{cssClass} == 'vierspaltig'">
-                    <f:render section="showImages" arguments="{initialFolder:initialFolder, currentFolder:currentFolder, images: images, subfolders:subfolders, uid:uid, layout: col4Css, size: col4Size}" />
+                    <f:render section="showImages" arguments="{currentFolder:currentFolder, initialFolder:initialFolder, parentFolder:parentFolder, images: images, subfolders:subfolders, uid:uid, layout: col4Css, size: col4Size}" />
                 </f:if>
                 <f:if condition="{cssClass} == 'sechsspaltig'">
-                    <f:render section="showImages" arguments="{initialFolder:initialFolder, currentFolder:currentFolder, images: images, subfolders:subfolders, uid:uid, layout: col6Css, size: col6Size}" />
+                    <f:render section="showImages" arguments="{currentFolder:currentFolder, initialFolder:initialFolder, parentFolder:parentFolder, images: images, subfolders:subfolders, uid:uid, layout: col6Css, size: col6Size}" />
                 </f:if>
             </f:alias>
 
@@ -34,16 +34,16 @@
     <f:section name="showImages">
         <f:debug>{all}</f:debug>
         <f:if condition="{currentFolder}!={initialFolder}">
-            <f:link.action action="showFolder" arguments="{initialFolder:initialFolder, currentFolder:currentFolder, uid:uid}">
+            <f:link.action action="showFolder" arguments="{initialFolder:initialFolder, subfolder:parentFolder, uid:uid}">
                 zurück
             </f:link.action>
-        <hr>
         </f:if>
+        <hr>
         <f:if condition="{subfolders}">
             <f:then>
                 <f:for each="{subfolders}" as="subfolder">
                     <div class="folderview {layout}">
-                        <f:link.action action="showFolder" arguments="{currentFolder:currentFolder, initialFolder:initialFolder, subfolder: subfolder.identifier, uid: uid}">
+                        <f:link.action action="showFolder" arguments="{initialFolder:initialFolder, subfolder: subfolder.identifier, uid: uid}">
                             <f:image title="{image.properties.description}" src="fileadmin{vh:randImage(folder:subfolder.identifier, uid:uid)}" width="{size}c" height="{size}c"/>
                         </f:link.action>
                     </div>

@@ -18,13 +18,13 @@
                 col6Size: '200'
                 }">
                 <f:if condition="{cssClass} == 'dreispaltig'">
-                    <f:render section="showImages" arguments="{currentFolder:currentFolder, initialFolder:initialFolder, subfolders: subfolders, images:images, layout: col3Css, size: col3Size, uid: uid}" />
+                    <f:render section="showImages" arguments="{initialFolder:initialFolder, subfolders: subfolders, images:images, layout: col3Css, size: col3Size, uid: uid}" />
                 </f:if>
                 <f:if condition="{cssClass} == 'vierspaltig'">
-                    <f:render section="showImages" arguments="{currentFolder:currentFolder, initialFolder:initialFolder, subfolders: subfolders, images:images, layout: col4Css, size: col4Size, uid: uid}" />
+                    <f:render section="showImages" arguments="{initialFolder:initialFolder, subfolders: subfolders, images:images, layout: col4Css, size: col4Size, uid: uid}" />
                 </f:if>
                 <f:if condition="{cssClass} == 'sechsspaltig'">
-                    <f:render section="showImages" arguments="{currentFolder:currentFolder, initialFolder:initialFolder, subfolders: subfolders, images:images, layout: col6Css, size: col6Size, uid: uid}" />
+                    <f:render section="showImages" arguments="{initialFolder:initialFolder, subfolders: subfolders, images:images, layout: col6Css, size: col6Size, uid: uid}" />
                 </f:if>
             </f:alias>
 
@@ -36,13 +36,13 @@
             <f:then>
                 <f:for each="{subfolders}" as="subfolder">
                     <div class="folderview {layout}">
-                        <f:link.action action="showFolder" arguments="{currentFolder:currentFolder, initialFolder:initialFolder, subfolder: subfolder.identifier, uid: uid}">
+                        <f:link.action action="showFolder" arguments="{initialFolder:initialFolder, subfolder: subfolder.identifier, uid: uid}">
                             <f:image title="{image.properties.description}" src="fileadmin{vh:randImage(folder:subfolder.identifier, uid:uid)}" width="{size}c" height="{size}c"/>
                         </f:link.action>
                     </div>
                 </f:for>
             </f:then>
-            <f:else>
+                <f:else>
                 <f:for each="{images}" as="image">
                     <div class="imagewrap {layout}">
                         <a class="venobox" data-gall="he_gallery" title="{image.properties.description}"

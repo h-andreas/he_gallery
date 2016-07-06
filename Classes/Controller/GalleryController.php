@@ -80,7 +80,6 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $subfolders = FileUtility::getSubfolders($imageFolder);
         $uid = substr($imageFolder, 0, strpos($imageFolder, ':'));
         $initialFolder = substr($imageFolder, strpos($imageFolder, ':') + 1);
-        $currentFolder = $initialFolder;
 
        if(!empty($subfolders)) {
            $this->view->assign('subfolders', $subfolders);
@@ -92,36 +91,37 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->view->assign('uid', $uid);
         $this->view->assign('cssClass', $cssClass);
         $this->view->assign('initialFolder', $initialFolder);
-        $this->view->assign('currentFolder', $currentFolder);
     }
 
     /**
      * action showFolder
      *
-     * @param string $initialFolder
-     * @param string $currentFolder
      * @param string $subfolder
      * @param int $uid
+     * @param string $initialFolder
      * @return void
      */
-    public function showFolderAction($initialFolder, $currentFolder, $subfolder, $uid){
+    public function showFolderAction($subfolder, $uid, $initialFolder){
 
         $cssClass = $this->settings['layout'];
-        // $subfolderObject = FileUtility::getFolderObject($uid . ':' . $subfolder);
-        // $currentFolder = substr($subfolderObject->getIdentifier(),0,strrpos($subfolderObject->getIdentifier(),"/"));
-        // $currentFolder = substr($temp,0,strrpos($temp,"/"));
+        $temp = substr($subfolder,0,strrpos($subfolder,"/"));
+        $parentFolder = substr($temp,0,strrpos($temp,"/")) . '/';
+        $subsubfolders = FileUtility::getSubfolders($uid . ':' . $subfolder);
+        $currentFolder = $subfolder;
+
         if(empty($subsubfolders)) {
             $images = FileUtility::getFiles($uid . ':' . $subfolder);
             $this->view->assign('images', $images);
         } else {
-            $subsubfolders = FileUtility::getSubfolders($uid . ':' . $subfolder);
             $this->view->assign('subfolders', $subsubfolders);
         }
 
+        $this->view->assign('subfolder', $subfolder);
         $this->view->assign('uid', $uid);
         $this->view->assign('cssClass', $cssClass);
-        $this->view->assign('currentFolder', $currentFolder);
+        $this->view->assign('parentFolder', $parentFolder);
         $this->view->assign('initialFolder', $initialFolder);
+        $this->view->assign('currentFolder', $currentFolder);
     }
 
     // hier die Methode, um aus einem Verzeichnis die Dateien auszulesen:
