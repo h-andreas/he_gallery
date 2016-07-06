@@ -8,3 +8,9 @@
 .he_gallery .imagewrap {
     padding: 0 0.5rem;
 }
+
+.he_gallery .folderview img {
+    width: 100%;
+    height: inherit;
+    padding: 0 0.5rem;
+}

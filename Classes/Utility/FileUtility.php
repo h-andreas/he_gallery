@@ -76,7 +76,7 @@ class FileUtility
    * @param String $imageFolder
    * @return \TYPO3\CMS\Core\Resource\Folder
    */
-  protected static function getFolderObject($imageFolder) {
+  public static function getFolderObject($imageFolder) {
     /** @var $resourceFactory \TYPO3\CMS\Core\Resource\ResourceFactory */
     $resourceFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeinstance(\TYPO3\CMS\Core\Resource\ResourceFactory::class);
     $storage = $resourceFactory->getStorageObjectFromCombinedIdentifier($imageFolder);

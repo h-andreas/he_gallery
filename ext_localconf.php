@@ -7,10 +7,10 @@ if (!defined('TYPO3_MODE')) {
 	'HSE.' . $_EXTKEY,
 	'Imagedisplay',
 	array(
-		'Gallery' => 'list, listFolders, showFolder',
+		'Gallery' => 'list, listFolders, showFolder, goBack',
 	),
 	// non-cacheable actions
 	array(
-		'Gallery' => 'list, listFolders, showFolder',
+		'Gallery' => 'list, listFolders, showFolder, goBack',
 	)
 );

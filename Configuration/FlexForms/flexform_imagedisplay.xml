@@ -12,11 +12,11 @@
                                 <items>
                                     <numIndex index="0">
                                         <numIndex index="0">Ja</numIndex>
-                                        <numIndex index="1">Gallery->listFolders; Gallery->showFolder</numIndex>
+                                        <numIndex index="1">Gallery->listFolders; Gallery->showFolder; Gallery->goBack</numIndex>
                                     </numIndex>
                                     <numIndex index="10">
                                         <numIndex index="0">Nein</numIndex>
-                                        <numIndex index="1">Persons->list</numIndex>
+                                        <numIndex index="1">Gallery->list; Gallery->goBack</numIndex>
                                     </numIndex>
                                 </items>
                             </config>

@@ -16,13 +16,13 @@
                 col6Size: '200'
                 }">
                 <f:if condition="{cssClass} == 'dreispaltig'">
-                    <f:render section="showImages" arguments="{images: images, layout: col3Css, size: col3Size}" />
+                    <f:render section="showImages" arguments="{currentFolder:currentFolder, images: images, layout: col3Css, size: col3Size}" />
                 </f:if>
                 <f:if condition="{cssClass} == 'vierspaltig'">
-                    <f:render section="showImages" arguments="{images: images, layout: col4Css, size: col4Size}" />
+                    <f:render section="showImages" arguments="{currentFolder:currentFolder, images: images, layout: col4Css, size: col4Size}" />
                 </f:if>
                 <f:if condition="{cssClass} == 'sechsspaltig'">
-                    <f:render section="showImages" arguments="{images: images, layout: col6Css, size: col6Size}" />
+                    <f:render section="showImages" arguments="{currentFolder:currentFolder, images: images, layout: col6Css, size: col6Size}" />
                 </f:if>
             </f:alias>
 
@@ -30,14 +30,16 @@
     </f:section>
 
     <f:section name="showImages">
+        <f:link.action action="goBack" arguments="{currentFolder:currentFolder, uid:uid}">
+            zurück
+        </f:link.action>
+        <hr>
         <f:for each="{images}" as="image">
-
             <div class="imagewrap {layout}">
                 <a class="venobox" data-gall="he_gallery" title="{image.properties.description}"
                    href="{f:uri.image(src: 'fileadmin{image.identifier}', width: '{size}')}">
                     <f:image title="{image.properties.description}" src="fileadmin{image.identifier}" width="300c" height="300c"/>
                 </a>
-
             </div>
         </f:for>
     </f:section>
