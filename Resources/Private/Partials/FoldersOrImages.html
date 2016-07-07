@@ -1,0 +1,11 @@
+<f:render partial="Back" arguments="{subfolder:subfolder, initialFolder:initialFolder, currentFolder:currentFolder, parentFolder:parentFolder, uid:uid}" />
+<div class="he_gallery">
+<f:if condition="{subfolders}">
+    <f:then>
+        <f:render partial="Folders" arguments="{initialFolder:initialFolder, currentFolder:currentFolder, parentFolder:parentFolder, subfolders:subfolders, uid:uid, layout: layout, size: size}" />
+    </f:then>
+    <f:else>
+        <f:render partial="Images" arguments="{images: images, layout: layout, size: size}" />
+    </f:else>
+</f:if>
+</div>

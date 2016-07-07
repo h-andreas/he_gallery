@@ -1,0 +1,42 @@
+<div class="gallery_container">
+    <f:alias map="{
+                col3Css: 'col-lg-2 col-md-4 col-sm-6 col-xs-8',
+                col3Size: '400',
+                col4Css: 'col-lg-3 col-md-3 col-sm-4 col-xs-6',
+                col4Size: '300',
+                col6Css: 'col-lg-2 col-md-2 col-sm-3 col-xs-4',
+                col6Size: '200'
+                }">
+        <f:if condition="{cssClass} == 'dreispaltig'">
+            <f:if condition="{masonry}">
+                <f:then>
+                    <f:render partial="FoldersOrImages" arguments="{initialFolder:initialFolder, currentFolder:currentFolder, parentFolder:parentFolder, subfolders:subfolders, images: images, uid:uid, layout: col3Css, size: ''}" />
+                </f:then>
+                <f:else>
+                    <f:render partial="FoldersOrImages" arguments="{initialFolder:initialFolder, currentFolder:currentFolder, parentFolder:parentFolder, subfolders:subfolders, images: images, uid:uid, layout: col3Css, size: 'col3Size'}" />
+                </f:else>
+            </f:if>
+        </f:if>
+        <f:if condition="{cssClass} == 'vierspaltig'">
+            <f:if condition="{masonry}">
+                <f:then>
+                    <f:render partial="FoldersOrImages" arguments="{initialFolder:initialFolder, currentFolder:currentFolder, parentFolder:parentFolder, subfolders:subfolders, images: images, uid:uid, layout: col4Css, size: ''}" />
+                </f:then>
+                <f:else>
+                    <f:render partial="FoldersOrImages" arguments="{initialFolder:initialFolder, currentFolder:currentFolder, parentFolder:parentFolder, subfolders:subfolders, images: images, uid:uid, layout: col4Css, size: 'col4Size'}" />
+                </f:else>
+             </f:if>
+        </f:if>
+        <f:if condition="{cssClass} == 'sechsspaltig'">
+            <f:if condition="{masonry}">
+                <f:then>
+                    <f:render partial="FoldersOrImages" arguments="{initialFolder:initialFolder, currentFolder:currentFolder, parentFolder:parentFolder, subfolders:subfolders, images: images, uid:uid, layout: col6Css, size: ''}" />
+                </f:then>
+                <f:else>
+                    <f:render partial="FoldersOrImages" arguments="{initialFolder:initialFolder, currentFolder:currentFolder, parentFolder:parentFolder, subfolders:subfolders, images: images, uid:uid, layout: col6Css, size: 'col6Size'}" />
+                </f:else>
+            </f:if>
+        </f:if>
+    </f:alias>
+
+</div>

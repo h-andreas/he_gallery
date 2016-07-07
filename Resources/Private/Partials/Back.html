@@ -1,0 +1,8 @@
+<f:if condition="{currentFolder}!={initialFolder}">
+    <div class="back">
+        <f:link.action action="showFolder" arguments="{initialFolder:initialFolder, subfolder:parentFolder, uid:uid}">
+            zurück
+        </f:link.action>
+        <hr>
+    </div>
+</f:if>

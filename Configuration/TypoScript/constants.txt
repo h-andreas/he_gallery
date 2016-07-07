@@ -11,9 +11,9 @@ plugin.tx_hegallery_imagedisplay {
 
 	settings {
 		# cat=plugin.tx_hegallery_imagedisplay/file; type=bool; label=Add venobox JavaScript?
-		addVenoboxJs = 0
+		addVenoboxJs = 1
 		# cat=plugin.tx_hegallery_imagedisplay/file; type=bool; label=Add venobox Css?
-		addVenoboxCss = 0
+		addVenoboxCss = 1
 		# cat=plugin.tx_hegallery_imagedisplay/file; type=bool; label=Add Masonry JavaScript?
 		addMasonryJs = 0
 

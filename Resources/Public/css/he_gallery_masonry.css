@@ -2,14 +2,17 @@
     clear: left;
 }
 
-.he_gallery a.venobox img {
-    width: 100%;
-    height: inherit;
-    padding: 0.5rem 0;
-}
-
 .he_gallery .imagewrap {
     padding: 0 0.5rem;
+}
+
+.he_gallery  .grid-item {
+    float: left;
+}
+
+.he_gallery  .grid-item  img {
+    padding: 0.5rem;
+
 }
 
 .back {
@@ -17,5 +20,3 @@
     width:100%;
     overflow: hidden;
 }
-
-

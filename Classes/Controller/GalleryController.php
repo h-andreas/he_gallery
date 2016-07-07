@@ -60,10 +60,12 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     }
     if (intval($this->settings['addMasonryJs'])==1) {
       $pageRenderer->addJsFooterFile($extPath . 'Resources/Public/masonry/masonry.pkgd.js');
-
+      $pageRenderer->addJsFooterFile($extPath . 'Resources/Public/js/he_gallery_masonry.js');
+      $pageRenderer->addCssFile($extPath . 'Resources/Public/css/he_gallery_masonry.css');
+    } else {
+      $pageRenderer->addJsFooterFile($extPath . 'Resources/Public/js/he_gallery.js');
+      $pageRenderer->addCssFile($extPath . 'Resources/Public/css/he_gallery.css');
     }
-    $pageRenderer->addCssFile($extPath . 'Resources/Public/css/he_gallery.css');
-    $pageRenderer->addJsFooterFile($extPath . 'Resources/Public/js/he_gallery.js');
 
   }
 
@@ -95,6 +97,7 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     $cssClass = $this->settings['layout'];
     $imageFolder = $this->settings['imageFolder'];
+    $masonry = $this->settings['addMasonryJs'];
 
     $subfolders = FileUtility::getSubfolders($imageFolder);
     $uid = substr($imageFolder, 0, strpos($imageFolder, ':'));
@@ -110,6 +113,8 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     $this->view->assign('uid', $uid);
     $this->view->assign('cssClass', $cssClass);
     $this->view->assign('initialFolder', $initialFolder);
+    $this->view->assign('masonry', $masonry);
+
   }
 
   /**
@@ -123,6 +128,7 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
   public function showFolderAction($subfolder, $uid, $initialFolder){
 
     $cssClass = $this->settings['layout'];
+    $masonry = $this->settings['addMasonryJs'];
     $temp = substr($subfolder,0,strrpos($subfolder,"/"));
     $parentFolder = substr($temp,0,strrpos($temp,"/")) . '/';
     $subsubfolders = FileUtility::getSubfolders($uid . ':' . $subfolder);
@@ -141,6 +147,7 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     $this->view->assign('parentFolder', $parentFolder);
     $this->view->assign('initialFolder', $initialFolder);
     $this->view->assign('currentFolder', $currentFolder);
+    $this->view->assign('masonry', $masonry);
   }
 
 

@@ -1,0 +1,18 @@
+{namespace vh = HSE\HeGallery\ViewHelpers}
+
+<f:debug>{all}</f:debug>
+<f:for each="{subfolders}" as="subfolder">
+    <div class="grid-item">
+        <f:link.action action="showFolder"
+                       arguments="{initialFolder:initialFolder, subfolder: subfolder.identifier, uid: uid}">
+            <f:image title="{image.properties.description}"
+                     src="fileadmin{vh:randImage(folder:subfolder.identifier, uid:uid)}" width="{size}" />
+        </f:link.action>
+    </div>
+</f:for>
+
+<f:comment>
+    <div class="folderview {layout}">
+    </div>
+</f:comment>
+
