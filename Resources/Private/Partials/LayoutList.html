@@ -8,7 +8,7 @@
                 col6Size: '200'
                 }">
         <f:if condition="{cssClass} == 'dreispaltig'">
-            <f:if condition="{masonry}">
+            <f:if condition="{masonry} == '1'">
                 <f:then>
                     <f:render partial="Images"
                               arguments="{currentFolder:currentFolder, images: images, layout: col3Css, size: ''}"/>
@@ -20,7 +20,7 @@
             </f:if>
         </f:if>
         <f:if condition="{cssClass} == 'vierspaltig'">
-            <f:if condition="{masonry}">
+            <f:if condition="{masonry} == '1'">
                 <f:then>
                     <f:render partial="Images"
                               arguments="{currentFolder:currentFolder, images: images, layout: col4Css, size: ''}"/>
@@ -32,7 +32,7 @@
             </f:if>
         </f:if>
         <f:if condition="{cssClass} == 'sechsspaltig'">
-            <f:if condition="{masonry}">
+            <f:if condition="{masonry} == '1'">
                 <f:then>
                     <f:render partial="Images"
                               arguments="{currentFolder:currentFolder, images: images, layout: col6Css, size: ''}"/>

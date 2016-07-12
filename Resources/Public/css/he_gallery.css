@@ -12,6 +12,14 @@
     padding: 0 0.5rem;
 }
 
+.he_gallery  .grid-item {
+    float: left;
+}
+
+.he_gallery  .grid-item  img {
+    padding: 0.5rem;
+}
+
 .back {
     float:left;
     width:100%;

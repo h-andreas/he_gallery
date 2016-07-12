@@ -1,8 +1,19 @@
+<f:debug title="Images">{all}</f:debug>
 <f:for each="{images}" as="image">
-    <div class="grid-item">
-        <a class="venobox" data-gall="he_gallery" title="{image.properties.description}"
-           href="{f:uri.image(src: 'fileadmin{image.identifier}', width: '1000')}">
-            <f:image title="{image.properties.description}" src="fileadmin{image.identifier}" width="{size}" />
-        </a>
+    <div class="grid-item {layout}">
+        <f:if condition="{masonry} == '1'">
+            <f:then>
+                <a class="venobox" data-gall="he_gallery" title="{image.properties.description}"
+                   href="{f:uri.image(src: 'fileadmin{image.identifier}', width: '1000')}">
+                    <f:image title="{image.properties.description}" src="fileadmin{image.identifier}" width="{size}" />
+                </a>
+            </f:then>
+            <f:else>
+                <a class="venobox" data-gall="he_gallery" title="{image.properties.description}"
+                   href="{f:uri.image(src: 'fileadmin{image.identifier}', width: '1000')}">
+                    <f:image title="{image.properties.description}" src="fileadmin{image.identifier}" height="{size}" width="{size}" />
+                </a>
+            </f:else>
+        </f:if>
     </div>
 </f:for>

@@ -102,6 +102,7 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     $subfolders = FileUtility::getSubfolders($imageFolder);
     $uid = substr($imageFolder, 0, strpos($imageFolder, ':'));
     $initialFolder = substr($imageFolder, strpos($imageFolder, ':') + 1);
+    $currentFolder = $initialFolder;
 
     if(!empty($subfolders)) {
       $this->view->assign('subfolders', $subfolders);
@@ -113,6 +114,7 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     $this->view->assign('uid', $uid);
     $this->view->assign('cssClass', $cssClass);
     $this->view->assign('initialFolder', $initialFolder);
+    $this->view->assign('currentFolder', $currentFolder);
     $this->view->assign('masonry', $masonry);
 
   }

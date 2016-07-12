@@ -1,6 +1,7 @@
 <f:layout name="Default"/>
 
 <f:section name="main">
+    <f:debug title="ListFolders">{all}</f:debug>
     <f:render partial="LayoutFolders"
               arguments="{initialFolder:initialFolder, currentFolder:currentFolder, parentFolder:parentFolder, subfolders:subfolders, images: images, uid:uid, cssClass:cssClass, masonry:masonry}"/>
 </f:section>

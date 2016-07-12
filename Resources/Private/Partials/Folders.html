@@ -1,18 +1,23 @@
 {namespace vh = HSE\HeGallery\ViewHelpers}
 
-<f:debug>{all}</f:debug>
+<f:debug title="Folders">{all}</f:debug>
 <f:for each="{subfolders}" as="subfolder">
-    <div class="grid-item">
-        <f:link.action action="showFolder"
-                       arguments="{initialFolder:initialFolder, subfolder: subfolder.identifier, uid: uid}">
-            <f:image title="{image.properties.description}"
-                     src="fileadmin{vh:randImage(folder:subfolder.identifier, uid:uid)}" width="{size}" />
-        </f:link.action>
+    <div class="grid-item {layout}">
+        <f:if condition="{masonry} == '1'">
+            <f:then>
+                <f:link.action action="showFolder"
+                               arguments="{initialFolder:initialFolder, subfolder: subfolder.identifier, uid: uid}">
+                    <f:image title="{image.properties.description}"
+                             src="fileadmin{vh:randImage(folder:subfolder.identifier, uid:uid)}" width="{size}" />
+                </f:link.action>
+            </f:then>
+            <f:else>
+                <f:link.action action="showFolder"
+                               arguments="{initialFolder:initialFolder, subfolder: subfolder.identifier, uid: uid}">
+                    <f:image title="{image.properties.description}"
+                             src="fileadmin{vh:randImage(folder:subfolder.identifier, uid:uid)}" height="{size}" width="{size}" />
+                </f:link.action>
+            </f:else>
+        </f:if>
     </div>
 </f:for>
-
-<f:comment>
-    <div class="folderview {layout}">
-    </div>
-</f:comment>
-
