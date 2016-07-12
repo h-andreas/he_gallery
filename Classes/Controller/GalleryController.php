@@ -80,12 +80,14 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     $cssClass = $this->settings['layout'];
     $imageFolder = $this->settings['imageFolder'];
     $currentFolder = substr($imageFolder, strpos($imageFolder, ':'));
+    $masonry = $this->settings['addMasonryJs'];
 
     $images = FileUtility::getFiles($imageFolder);
 
     $this->view->assign('images', $images);
     $this->view->assign('cssClass', $cssClass);
     $this->view->assign('currentFolder', $currentFolder);
+    $this->view->assign('masonry', $masonry);
   }
 
   /**
