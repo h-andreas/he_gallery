@@ -13,6 +13,9 @@ class RandImageViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
      * @return object
      */
     public function render($folder, $uid){
+        if ($folder == ''){
+            throw new ErrorException('No folder given.');
+        }
         $images = $this->findImages($folder, $uid);
         if(!empty($images)){
             $randImage = $images[array_rand($images)]->getIdentifier();
@@ -26,9 +29,9 @@ class RandImageViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
      * @return \TYPO3\CMS\Core\Resource\File[]
      */
     protected function findImages($folder, $uid){
-        $images = FileUtility::getFiles($uid . ':' . $folder);
+        $images = FileUtility::getFiles($uid, $folder);
         if(empty($images)){
-            $subfolders = FileUtility::getSubfolders($uid . ':' . $folder);
+            $subfolders = FileUtility::getSubfolders($uid, $folder);
             $subfolderCount = count($subfolders);
             if ($subfolderCount>0) {
                 for ($i = 0; $i < $subfolderCount && empty($images); $i++) {

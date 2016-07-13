@@ -78,11 +78,14 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
   public function listAction(){
 
     $cssClass = $this->settings['layout'];
-    $imageFolder = $this->settings['imageFolder'];
-    $currentFolder = substr($imageFolder, strpos($imageFolder, ':'));
+    $storageFolder = $this->settings['imageFolder'];
+    $storageArray = explode(':', $storageFolder);
+
+    $currentFolder = $storageArray[1];
     $masonry = $this->settings['addMasonryJs'];
 
-    $images = FileUtility::getFiles($imageFolder);
+
+    $images = FileUtility::getFiles($storageArray[0], $storageArray[1]);
 
     $this->view->assign('images', $images);
     $this->view->assign('cssClass', $cssClass);
@@ -98,18 +101,19 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
   public function listFoldersAction(){
 
     $cssClass = $this->settings['layout'];
-    $imageFolder = $this->settings['imageFolder'];
+    $storageFolder = $this->settings['imageFolder'];
     $masonry = $this->settings['addMasonryJs'];
 
-    $subfolders = FileUtility::getSubfolders($imageFolder);
-    $uid = substr($imageFolder, 0, strpos($imageFolder, ':'));
-    $initialFolder = substr($imageFolder, strpos($imageFolder, ':') + 1);
+    $storageArray = explode(':', $storageFolder);
+    $subfolders = FileUtility::getSubfolders($storageArray[0], $storageArray[1]);
+    $uid = $storageArray[0];
+    $initialFolder = $storageArray[1];
     $currentFolder = $initialFolder;
 
     if(!empty($subfolders)) {
       $this->view->assign('subfolders', $subfolders);
     } else {
-      $images = FileUtility::getFiles($imageFolder);
+      $images = FileUtility::getFiles($storageArray[0], $storageArray[1]);
       $this->view->assign('images', $images);
     }
 
@@ -135,11 +139,11 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     $masonry = $this->settings['addMasonryJs'];
     $temp = substr($subfolder,0,strrpos($subfolder,"/"));
     $parentFolder = substr($temp,0,strrpos($temp,"/")) . '/';
-    $subsubfolders = FileUtility::getSubfolders($uid . ':' . $subfolder);
+    $subsubfolders = FileUtility::getSubfolders($uid, $subfolder);
     $currentFolder = $subfolder;
 
     if(empty($subsubfolders)) {
-      $images = FileUtility::getFiles($uid . ':' . $subfolder);
+      $images = FileUtility::getFiles($uid, $subfolder);
       $this->view->assign('images', $images);
     } else {
       $this->view->assign('subfolders', $subsubfolders);
@@ -153,28 +157,6 @@ class GalleryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     $this->view->assign('currentFolder', $currentFolder);
     $this->view->assign('masonry', $masonry);
   }
-
-
-  /**
-   * get folder object
-   *
-   * @param String $imageFolder
-   * @return \TYPO3\CMS\Core\Resource\Folder
-   */
-  protected function getFolderObject($imageFolder) {
-    /** @var $resourceFactory \TYPO3\CMS\Core\Resource\ResourceFactory */
-    $resourceFactory = $this->objectManager->get(\TYPO3\CMS\Core\Resource\ResourceFactory::class);
-    $storage = $resourceFactory->getStorageObjectFromCombinedIdentifier($imageFolder);
-    $identifier = substr($imageFolder, strpos($imageFolder, ':') + 1);
-    if (!$storage->hasFolder($identifier)) {
-      $identifier = $storage->getFolderIdentifierFromFileIdentifier($identifier);
-    }
-    /** @var \TYPO3\CMS\Core\Resource\Folder $folderObject */
-    $folderObject = $resourceFactory->getFolderObjectFromCombinedIdentifier($storage->getUid() . ':' . $identifier);
-    return $folderObject;
-  }
-
-
 }
 
 

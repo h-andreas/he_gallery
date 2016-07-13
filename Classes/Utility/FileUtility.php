@@ -40,15 +40,25 @@ class FileUtility
     /**
      * get all Files from given folder
      *
+     * @param integer $storageId
      * @param String $imageFolder
      * @return \TYPO3\CMS\Core\Resource\File[]
      */
-    public static  function getFiles($imageFolder) {
-      /** @var \TYPO3\CMS\Core\Resource\Folder $folderObject */
-      $folderObject = self::getFolderObject($imageFolder);
 
-      /**@var \TYPO3\CMS\Core\Resource\File[] $files */
-      $files = $folderObject->getFiles(0, 999);
+
+    public static  function getFiles($storageId, $imageFolder) {
+      $files = array();
+
+      if (!empty($imageFolder)) {
+        /** @var \TYPO3\CMS\Core\Resource\Folder $folderObject */
+        $folderObject = self::getFolderObject($storageId, $imageFolder);
+
+        if (!empty($folderObject)) {
+          /**@var \TYPO3\CMS\Core\Resource\File[] $files */
+          $files = $folderObject->getFiles(0, 999);
+        }
+
+      }
 
       return $files;
     }
@@ -56,12 +66,14 @@ class FileUtility
   /**
    * get all Subfolders from given folder
    *
+   * @param integer $storageId
    * @param String $imageFolder
    * @return \TYPO3\CMS\Core\Resource\Folder[]
    */
-    public static function getSubfolders($imageFolder) {
+    public static function getSubfolders($storageId, $imageFolder) {
+
     /** @var \TYPO3\CMS\Core\Resource\Folder $folderObject */
-    $folderObject = self::getFolderObject($imageFolder);
+    $folderObject = self::getFolderObject($storageId, $imageFolder);
 
     /**@var \TYPO3\CMS\Core\Resource\Folder[] $files */
     $folderList = $folderObject->getSubfolders(0, 999);
@@ -73,19 +85,24 @@ class FileUtility
   /**
    * get folder object
    *
+   * @param integer $storageId
    * @param String $imageFolder
+   *
+   * @throws \InvalidArgumentException
    * @return \TYPO3\CMS\Core\Resource\Folder
    */
-  public static function getFolderObject($imageFolder) {
+  public static function getFolderObject($storageId, $imageFolder) {
+    if (!is_numeric($storageId)) {
+      throw new \InvalidArgumentException('storageId has to be numeric.');
+    }
     /** @var $resourceFactory \TYPO3\CMS\Core\Resource\ResourceFactory */
     $resourceFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeinstance(\TYPO3\CMS\Core\Resource\ResourceFactory::class);
-    $storage = $resourceFactory->getStorageObjectFromCombinedIdentifier($imageFolder);
-    $identifier = substr($imageFolder, strpos($imageFolder, ':') + 1);
-    if (!$storage->hasFolder($identifier)) {
-      $identifier = $storage->getFolderIdentifierFromFileIdentifier($identifier);
+    $storage = $resourceFactory->getStorageObject($storageId);
+    if (!$storage->hasFolder($imageFolder)) {
+      $imageFolder = $storage->getFolderIdentifierFromFileIdentifier($imageFolder);
     }
     /** @var \TYPO3\CMS\Core\Resource\Folder $folderObject */
-    $folderObject = $resourceFactory->getFolderObjectFromCombinedIdentifier($storage->getUid() . ':' . $identifier);
+    $folderObject = $storage->getFolder($imageFolder);
     return $folderObject;
   }
 
